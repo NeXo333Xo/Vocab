@@ -15,7 +15,7 @@ public class KeyValuePair {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String key;
+    private String keyString;
 
-    private String value;
+    private String valueString;
 }
