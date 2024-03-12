@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>createNewDeck</title>
+</head>
+
+<body>
+    <form th:action="@{/newDeck}" method="post">
+        <label for="New deck name">New Deck Name</label><br>
+        <input type="text" id="name" name="name" required>
+    </form>
+
+</body>
+
+</html>

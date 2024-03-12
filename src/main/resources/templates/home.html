@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1 th:text="'It\'s nice to see you again ' + ${username}"></h1> <br>
+<h1 th:text="'Your Email is ' + ${email}"></h1>
+
+<button type="button" name="NewDeck" onclick="createNewDeck()">Create new Deck</button>
+
+
+<script>
+    function createNewDeck() {
+        // Redirect the user to the specified URL
+        window.location.href = "./newDeck";
+    }
+</script>
+
+</body>
+</html>
