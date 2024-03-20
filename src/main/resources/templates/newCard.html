@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>createNewCard</title>
+</head>
+
+
+
+<body>
+    <h2>Deck Details:</h2><br>
+    <p th:text="'Deck name: ' + ${session.deck.name}"></p><br>
+    <h2>Cards in Deck:</h2><br>
+    <p th:text="'Cards in Deck: ' + ${countCards}"></p><br>
+    <div th:if="${error}" class="alert alert-danger">
+        <p th:text="${error}"></p>
+    </div>
+    <br><br>
+    <h3>Add a new card</h3>
+    <form th:action="@{/newCard}" method = post>
+        <label for="front">front</label>
+        <input type="text" id="front" name="front" required>
+        <label for="back">back</label>
+        <input type="text" id="back" name="back" required>
+        
+        <button type="submit">Submit</button><br><br>
+    </form>
+
+    <a href="home">Home</a>
+
+</body>
+
+</html>

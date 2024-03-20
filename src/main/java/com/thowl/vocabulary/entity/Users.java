@@ -17,13 +17,16 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
+    
     private String email;
 
     private String username;
 
     private String password;
 
-    private boolean isAdmin = false;;
+    private boolean Admin = false;
+
+    private boolean Online = false;
 
 
 
@@ -31,5 +34,9 @@ public class Users {
         this.email = email;
         this.username = username;
         this.password = password;
+    }
+
+    public void clearPassword() {
+        this.password = null;
     }
 }

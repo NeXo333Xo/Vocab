@@ -5,11 +5,9 @@
     <title>Home</title>
 </head>
 <body>
-<h1 th:text="'It\'s nice to see you again ' + ${username}"></h1> <br>
-<h1 th:text="'Your Email is ' + ${email}"></h1>
+<h1 th:text="'It\'s nice to see you again ' + ${user.username}"></h1> <br>
 
-<button type="button" name="NewDeck" onclick="createNewDeck()">Create new Deck</button>
-
+<button type="button" name="NewDeck" onclick="createNewDeck()">Create new Deck</button><br><br>
 
 <script>
     function createNewDeck() {
@@ -17,6 +15,20 @@
         window.location.href = "./newDeck";
     }
 </script>
+
+<div class="deck">
+    <h2>User Decks</h2>
+    <ul th:if="${not #lists.isEmpty(decks)}">
+        <!-- Iterate over the list of decks -->
+        <li th:each="deckName : ${decks}">
+            <!-- Display the deck's name -->
+            <span th:text="${deckName.name}"></span>
+        </li>
+    </ul>
+    <p th:if="${#lists.isEmpty(decks)}">No decks available.</p>
+</div>
+
+
 
 </body>
 </html>

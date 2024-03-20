@@ -6,10 +6,15 @@
 </head>
 
 <body>
-    <form th:action="@{/newDeck}" method="post">
-        <label for="New deck name">New Deck Name</label><br>
-        <input type="text" id="name" name="name" required>
+    <h2>Create a new deck</h2>
+    <form action="#" th:action="@{/newDeck}" method="post">
+        <label for="deckName">Deck name:</label><br>
+        <input type="text" id="deckname" name="deckName"/><br><br>
+        <button type="submit">Create Deck</button>
     </form>
+    <div th:if="${error}" class="alert alert-danger">
+        <p th:text="${error}"></p>
+    </div>
 
 </body>
 
