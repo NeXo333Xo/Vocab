@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Vocab</title>
+</head>
+
+<body>
+    <h1>Study deck: <span th:text="${deck.name}"></span></h1>
+    <!-- Display flashcards for studying -->
+    <div class="cards" th:each="card: ${cards}">
+        <div class="front">
+            <h3>Front: <span id="front" th:text="${card.front}"></span></h3>
+        </div>
+        <div class="back">
+            <h3>Back: <span id="back" th:text="${card.back}"></span></h3>
+        </div>
+        <hr>
+    </div>
+</body>
+
+</html>

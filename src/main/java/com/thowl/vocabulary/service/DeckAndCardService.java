@@ -30,15 +30,54 @@ public class DeckAndCardService {
     @Autowired
     CardRepository cardRepo;
 
-    // TODO: Write documentation
+
+    public Card findByFront(String front) {
+        return cardRepo.findByFront(front);
+    }
     
-    public List<Deck> showDecks(Users user) {
-        log.info("DeckAndCardService: Entering showDecks");
+    /**
+     * Gets all the decks a user has created
+     * 
+     * @param user
+     * @return list of deck objects
+     */
+    public List<Deck> showUsersDecks(Users user) {
+        log.info("Entering showUsersDecks");
         return deckRepo.findByUser(user);
     }
 
+    /**
+     * Gets all cards a deck contains
+     *
+     * @param deck
+     * @return list of card objects
+     */
+    public List<Card> showDecksCards(Deck deck) {
+        log.info("Entering showDecksCards");
+        return cardRepo.findByDeck(deck);
+    }
+
+    /**
+     * Gets the user by his userId
+     * 
+     * @param deckId
+     * @return the user 
+     */
+    public Deck findByDeckId(long deckId) {
+        log.info("Entering findByDeckId");
+        return deckRepo.findByDeckId(deckId);
+    }
+
+    /**
+     * Saves and returns a  deck
+     * 
+     * @param deckName
+     * @param user
+     * @return the deck 
+     * @throws UserException 
+     */
     public Deck saveDeck(String deckName, Users user) throws UserException {   
-        log.info("DeckAndCardService: Entering saveDeck");
+        log.info("Entering saveDeck");
         if (deckRepo.existsByNameAndUser(deckName, user) == false) {
             Deck deck = new Deck();
             deck.setName(deckName);
@@ -50,12 +89,22 @@ public class DeckAndCardService {
         }
     }
 
+    /**
+     * Saves and returns a card
+     * 
+     * @param front
+     * @param back
+     * @param deck
+     * @param user
+     * @return
+     * @throws Exception
+     */
     public Card saveCard(
         String front, 
         String back,
         Deck deck, 
         Users user) throws Exception {
-            log.info("DeckAndCardService: Entering saveCard");
+            log.info("Entering saveCard");
             if (deck == null) {
                 throw new Exception("ERROR: Deck couldnt be found");
             }else if (cardRepo.existsByDeckAndFront(deck, front)) {
@@ -67,6 +116,11 @@ public class DeckAndCardService {
             return cardRepo.save(card);
     }
 
+    /**
+     * Counts the cards corresponding to specific deck
+     * @param deck
+     * @return
+     */
     public long countCards(Deck deck) {
         return cardRepo.countCards(deck.getDeckId());
     }

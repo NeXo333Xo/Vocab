@@ -9,7 +9,7 @@
 
 <body>
     <h2>Deck Details:</h2><br>
-    <p th:text="'Deck name: ' + ${session.deck.name}"></p><br>
+    <p th:text="'Deck name: ' + ${deck.name}"></p><br>
     <h2>Cards in Deck:</h2><br>
     <p th:text="'Cards in Deck: ' + ${countCards}"></p><br>
     <div th:if="${error}" class="alert alert-danger">

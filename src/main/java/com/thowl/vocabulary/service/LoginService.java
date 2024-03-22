@@ -2,7 +2,7 @@ package com.thowl.vocabulary.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
+
 
 import com.thowl.vocabulary.entity.Users;
 import com.thowl.vocabulary.exception.UserException;
@@ -30,7 +30,7 @@ public class LoginService {
      */
     public Users registerUser(String email, String username, String password) 
     throws UserException {
-        log.info("LoginService: Entering registerUser");
+        log.info("Entering registerUser");
         if (usersRepo.existsByUsername(username)) {
             throw new UserException(
                 "Username already exists, choose another one");
@@ -54,7 +54,7 @@ public class LoginService {
      */
     public Users loginUser(String username, String password) 
     throws UserException {
-        log.info("LoginService: Entering loginUser");
+        log.info("Entering loginUser");
         Users user = usersRepo.findByUsernameAndPassword(username, password);
         if (user == null) {
             throw new UserException("Wrong login data");
@@ -75,7 +75,7 @@ public class LoginService {
      * @return the exited user
      */
     public Users logoutUser(Users user) {
-        log.info("LoginService: Entering logoutUser");
+        log.info("Entering logoutUser");
         Users logoutUser = usersRepo.getReferenceById(user.getUserId());
         logoutUser.setOnline(false);
         return usersRepo.save(logoutUser);

@@ -16,21 +16,24 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@SessionAttributes("user")
 @Slf4j
+@SessionAttributes({"user, deck"})
 public class LoginController {
 
     @Autowired
     LoginService loginService;
+
+    
 
     /**
      * Handles GET request for index
      */
     @GetMapping("")
     public String indexPage() {
-        log.info("LoginController: Entering showIndex");
+        log.info("Entering showIndex");
         return "index";
     }
+
 
 
     /**
@@ -38,7 +41,7 @@ public class LoginController {
      */
     @GetMapping("/register")
     public String registrationPage() {
-        log.info("LoginController: Entering registrationPage");
+        log.info("Entering registrationPage");
         return "register";
     }
 
@@ -59,7 +62,7 @@ public class LoginController {
             @RequestParam("password") String password,
             Model model,
             HttpSession session) {
-        log.info("LoginController: Entering doRegistration");
+        log.info("Entering doRegistration");
         try {
             if (email == null || username == null || password == null) {
                 throw new UserException("Not all the necessary data was provided");
@@ -68,7 +71,7 @@ public class LoginController {
             user.clearPassword();
 
             session.setAttribute("user", user);
-            log.info("LoginController: Registered new User: {}", username);
+            log.info("Registered new User: {}", username);
             return "redirect:/home";
         } catch (UserException e) {
             model.addAttribute("error", e.getMessage());
@@ -83,7 +86,7 @@ public class LoginController {
      */
     @GetMapping("/login")
     public String loginPage() {
-        log.info("LoginController: Entering loginPage");
+        log.info("Entering loginPage");
         return "login";
     }
 
@@ -130,7 +133,7 @@ public class LoginController {
     @GetMapping("/logout") 
     public String logout(HttpSession session) {
         Users user = (Users) session.getAttribute("user");
-        log.info("LoginController: Entering logout with user {}", 
+        log.info("Entering logout with user {}", 
         user.getUsername());
         loginService.logoutUser(user); // loged out + user status: online false;
         session.invalidate();

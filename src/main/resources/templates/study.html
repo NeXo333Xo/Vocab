@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Vocab</title>
+    <style>
+        .card {
+            border: 1px solid black;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .back {
+            display: none; /* Initially hide the back of the card */
+        }
+    </style>
+</head>
+
+<body>
+    <a href="./home">Home</a>
+    <h1>Study Deck: <span th:text="${deck.name}"></span></h1>
+    <!-- Display flashcards for studying -->
+    <div th:each="card: ${cards}" class="cards">
+        <div class="card">
+            <div class="front">
+                <h3>Front: <span th:text="${card.front}"></span></h3>
+            </div>
+            <div class="back">
+                <h3>Back: <span th:text="${card.back}"></span></h3>
+            </div>
+            <button onclick="toggleBack(this)">Show Back</button>
+        </div>
+    </div>
+<script>
+    function toggleBack(button) {
+    var card = button.parentElement;
+    var back = card.querySelector('.back');
+    
+    // Hide the back of all cards
+    var allCards = document.querySelectorAll('.cards');
+    allCards.forEach(function(card) {
+        var back = card.querySelector('.back');
+        back.style.display = 'none';
+    });
+
+    // Toggle the visibility of the back of the clicked card
+    if (back.style.display === 'none') {
+        back.style.display = 'block';
+    } else {
+        back.style.display = 'none';
+    }
+}
+</script>
+</body>
+
+</html>

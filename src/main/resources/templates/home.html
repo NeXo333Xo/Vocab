@@ -20,9 +20,18 @@
     <h2>User Decks</h2>
     <ul th:if="${not #lists.isEmpty(decks)}">
         <!-- Iterate over the list of decks -->
-        <li th:each="deckName : ${decks}">
+        <li th:each="deck : ${decks}">
             <!-- Display the deck's name -->
-            <span th:text="${deckName.name}"></span>
+            <span th:text="${deck.name}"></span>
+                <span>&ensp;</span> 
+            <a th:href="@{'/study/' + ${deck.deckId}}">Study</a>
+                <span>&ensp;</span> 
+            <a th:href="@{'/showCards/' + ${deck.deckId}}">Show Cards</a> 
+                <span>&ensp;</span> 
+            <a th:href="@{/newCard(deckId=${deck.deckId})}">Add a new card</a>
+                <span>&ensp;</span> 
+            <a th:href="@{/editDeck(deckId=${deck.deckId})}">Edit deck</a>
+                <span>&ensp;</span> 
         </li>
     </ul>
     <p th:if="${#lists.isEmpty(decks)}">No decks available.</p>
