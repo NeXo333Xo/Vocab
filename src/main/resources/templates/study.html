@@ -12,14 +12,15 @@
         }
 
         .back {
-            display: none; /* Initially hide the back of the card */
+            display: none; /* Initially hide the back of the card   */                    
         }
     </style>
 </head>
 
 <body>
-    <a href="./home">Home</a>
-    <h1>Study Deck: <span th:text="${deck.name}"></span></h1>
+    <a href="../home">Home</a>
+
+    <h1>Study Deck: <span th:text="${deck.name}"></span></h1><hr>
     <!-- Display flashcards for studying -->
     <div th:each="card: ${cards}" class="cards">
         <div class="card">

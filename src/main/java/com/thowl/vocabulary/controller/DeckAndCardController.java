@@ -40,17 +40,11 @@ public class DeckAndCardController {
         session.removeAttribute("deck");
         Users user = (Users) session.getAttribute("user");
         log.info("Entering home with user : {}", user.getUsername());
-        log.info("deck: {}", session.getAttribute("deck"));
         List<Deck> decks = deckCardSvc.showUsersDecks(user);
         model.addAttribute("decks", decks);
         return "home";
     }
 
-    /*
-    @PostMapping("/home") 
-    public String chooseDeck()
-    }
-    */
 
     /**
      * Handles GET request for newDeck. Shows form for creating a new deck
@@ -167,6 +161,8 @@ public class DeckAndCardController {
         }
     }
 
+
+
     @GetMapping("/showCards/{deckId}")
     public String studyDeckPage(@PathVariable Long deckId, Model model, HttpSession session) {
         // Retrieve the selected deck
@@ -203,6 +199,32 @@ public class DeckAndCardController {
         model.addAttribute("cards", cards);
         session.setAttribute("deck", deck);
         return "study";
+    }
+
+
+
+    @GetMapping("/editDeck/{deckId}")
+    public String editDeckPage(@PathVariable Long deckId, Model model, HttpSession session) {
+        // Retrieve the selected deck
+        Deck deck = deckCardSvc.findByDeckId(deckId);
+        // Check if the deck belongs to the current user 
+        Users user = (Users) session.getAttribute("user");
+        if (deck.getUser().getUserId() != user.getUserId()) {
+             model.addAttribute("unexpectedError", "The chosen deck and user dont match");
+             return "error"; // You can create an error page to handle this case
+         }
+        // Code sollte bei search funktion audgeführt werden!!!
+        List<Card> cards = deckCardSvc.showDecksCards(deck);
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getFront() == "wie");
+                Card card = cards.get(i);
+                model.addAttribute("card", card);
+
+                model.addAttribute("deck", deck);
+                session.setAttribute("deck", deck);
+                return "editDeck";
+        }
+        return "home";
     }
 
 
