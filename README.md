@@ -26,7 +26,7 @@ switching to rest using now only Id as resource identifier!
 )
 
 # 3. Installation
-- prerequisite: installed IDE, JDK (I used lts22) 
+- prerequisite: installed IDE, JDK (I used 21.0.1 2023-10-17 LTS)
 
 1. git clone https://github.com/NeXo333Xo/Vocab.git
 2. execute the commands in starth2.sh to start the h2 server.
@@ -35,6 +35,9 @@ switching to rest using now only Id as resource identifier!
 # 4. Testing
 Testing is short in the project, because of much usage of throwables and not much experience
 with it.
+Run the project and start the server and test the website on localhost:8080
+username: marlon password: 1234 or
+username: max    password: 1234 
 
 # 5. Contributing
 Feel free to contribute
