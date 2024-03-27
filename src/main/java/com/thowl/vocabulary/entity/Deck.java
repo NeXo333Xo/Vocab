@@ -28,12 +28,12 @@ public class Deck {
     private Users user;
 
     
-    
+    /**
+     * Constructs a new Deck object with the provided name.
+     * 
+     * @param name The name of the deck.
+     */
     public Deck(String name) {
         this.name = name;
-    }
-
-
-    // Constructors, getters, setters, etc.
-    
+    }    
 }

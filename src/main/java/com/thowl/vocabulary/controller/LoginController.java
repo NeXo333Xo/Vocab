@@ -4,19 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
 import com.thowl.vocabulary.entity.Users;
 import com.thowl.vocabulary.exception.UserException;
 import com.thowl.vocabulary.service.LoginService;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Controller class responsible for handling authentication-related requests,
+ * such as user registration, login, and logout.
+ */
 @Controller
 @RequestMapping("/api/auth")
 @Slf4j
@@ -25,10 +26,10 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-    
-
     /**
-     * Handles GET request for index
+     * Handles a GET request for the index page.
+     * 
+     * @return index (login or register?)
      */
     @GetMapping("")
     public String indexPage() {
@@ -36,10 +37,10 @@ public class LoginController {
         return "index";
     }
 
-
-
     /**
      * Handles GET request for register
+     * 
+     * @return register
      */
     @GetMapping("/register")
     public String registrationPage() {
@@ -48,29 +49,27 @@ public class LoginController {
     }
 
     /**
-     * Handles POST request for register
+     * Handles a POST request for user registration.
      * 
-     * @param email
-     * @param username
-     * @param password
-     * @param model
-     * @param session
-     * @return redirect:/home else register 
+     * @param email    The email address of the user to register.
+     * @param username The username of the user to register.
+     * @param password The password of the user to register.
+     * @param model    The model to add attributes for the view.
+     * @return A redirect to the home page if registration is successful, otherwise
+     *         the registration page.
      */
     @PostMapping("/register")
     public String doRegistration(
             @RequestParam("email") String email,
             @RequestParam("username") String username,
             @RequestParam("password") String password,
-            Model model,
-            HttpSession session) {
+            Model model) {
         log.info("Entering doRegistration");
         try {
             if (email == null || username == null || password == null) {
                 throw new UserException("Not all the necessary data was provided");
             } // check credentials
             Users user = loginService.registerUser(email, username, password);
-            user.clearPassword();
 
             log.info("Registered new User: {}", username);
             return "redirect:/api/users/" + user.getUserId() + "/home";
@@ -78,12 +77,12 @@ public class LoginController {
             model.addAttribute("error", e.getMessage());
             return "register";
         }
-       
     }
-
 
     /**
      * Handles GET request for login
+     * 
+     * @return login
      */
     @GetMapping("/login")
     public String loginPage() {
@@ -92,12 +91,13 @@ public class LoginController {
     }
 
     /**
+     * Handles a POST request for user login.
      * 
-     * @param username
-     * @param password
-     * @param model
-     * @param session
-     * @return redirect:/home else login
+     * @param username The username of the user attempting to login.
+     * @param password The password of the user attempting to login.
+     * @param model    The model to add attributes for the view.
+     * @return A redirect to the home page if login is successful, otherwise the
+     *         login page.
      */
     @PostMapping("/login")
     public String doLogin(
@@ -111,33 +111,26 @@ public class LoginController {
             }
             // check credentials and makes user status: online true
             Users user = loginService.loginUser(username, password);
-            user.clearPassword();
 
             log.info("Login in with User: {}", username);
-            return "redirect:/api/users/" +  user.getUserId() + "/home";
+            return "redirect:/api/users/" + user.getUserId() + "/home";
         } catch (UserException e) {
             model.addAttribute("error", e.getMessage());
             return "login";
         }
     }
 
-
-    // add java script timer
     /**
-     * Handles GET request for logout
+     * Handles a GET request for user logout.
      * 
-     * @param session
-     * @return
+     * @param userId The ID of the user to logout.
+     * @return A redirect to the login page.
      */
-    @GetMapping("/logout") 
-    public String logout(HttpSession session) {
-        Users user = (Users) session.getAttribute("user");
-        log.info("Entering logout with user {}", 
-        user.getUsername());
-        loginService.logoutUser(user); // loged out + user status: online false;
-        session.invalidate();
+    @GetMapping("/logout/users/{userId}")
+    public String logout(
+            @PathVariable("userId") long userId) {
+        log.info("Entering logout");
+        loginService.logoutUser(userId);
         return "redirect:/api/auth/login";
-     } 
-        
-    
+    }
 }

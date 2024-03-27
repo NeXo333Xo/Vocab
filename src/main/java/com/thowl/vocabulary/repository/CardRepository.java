@@ -14,11 +14,12 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     Card findByFront(String front);
     Card findByCardId(Long cardId);
     List<Card> findByDeck(Deck deck);
-
-    Boolean existsByDeckAndFront(Deck deck, String front);
     Card findByFrontAndDeck(String front, Deck deck);
     Card findByFrontStartsWith(String front);
 
+    Boolean existsByDeckAndFront(Deck deck, String front);
+    
+    void removeByCardId(Long cardId);
 
     @Query("SELECT COUNT(c) FROM Card c WHERE c.deck.id = :deckId")
     long countCards(@Param("deckId") Long deckId);

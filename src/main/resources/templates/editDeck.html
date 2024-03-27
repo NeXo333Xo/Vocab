@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Vocab</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css"> <!-- Link to external CSS file -->
 </head>
 
 <body>
@@ -26,22 +25,13 @@
         <h2 contenteditable="true" th:text="${searchedCard.front}"></h2><br>
         <h2>Back:</h2>
         <h2 contenteditable="true" th:text="${searchedCard.back}"></h2><br>
-    </div>
-
+        <h2>cardId:</h2>
+        <h2 th:text="${searchedCard.cardId}"></h2>
+    
     <h2 th:text="${error}"></h2>
     
-    
 
-    <!--
-    <div class="cards" th:each="card: ${cards}">
-        <div class="front">
-            <h3>Front: <span id="front" th:text="${card.front}"></span></h3>
-        </div>
-        <div class="back">
-            <h3>Back: <span id="back" th:text="${card.back}"></span></h3>
-        </div>
-        <hr>
-    </div>
-    -->
+    <h2 th:text="${deleted}"></h2>
+
 
 </html>

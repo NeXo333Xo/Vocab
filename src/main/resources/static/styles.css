@@ -1,0 +1,59 @@
+/* styles.css */
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ccc; /* Gray background */
+    color: #333;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Header styles */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Main content styles */
+main {
+    margin-top: 80px; /* Adjust to match the height of the fixed header */
+    margin-left: auto; /* Center content horizontally */
+    margin-right: auto; /* Center content horizontally */
+    max-width: 800px; /* Set maximum width for the main content */
+    padding: 20px; /* Add some padding to the main content */
+}
+
+/* Deck styles */
+.deck {
+    margin-top: 20px; /* Adjust as needed */
+}
+
+.deck a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.deck a:hover {
+    text-decoration: underline;
+}
+
+/* Add padding around each card */
+.card {
+    border: 1px solid black;
+    margin-bottom: 10px;
+    padding: 10px; /* Add padding to each card */
+}
