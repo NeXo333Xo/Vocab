@@ -30,6 +30,17 @@ public class DeckAndCardService {
     @Autowired
     CardRepository cardRepo;
 
+    public Card findByFrontStartsWith(String front) {
+        return cardRepo.findByFrontStartsWith(front);      
+    }
+
+    public Users findByUserId(long userId) {
+        return usersRepo.findByUserId(userId);
+    }
+
+    public Card findByFrontAndDeck(String front, Deck deck) {
+        return cardRepo.findByFrontAndDeck(front, deck);
+    }
 
     public Card findByFront(String front) {
         return cardRepo.findByFront(front);
@@ -105,8 +116,8 @@ public class DeckAndCardService {
         Deck deck, 
         Users user) throws Exception {
             log.info("Entering saveCard");
-            if (deck == null) {
-                throw new Exception("ERROR: Deck couldnt be found");
+            if (deck == null | user == null) {
+                throw new Exception("ERROR: Deck or user couldnt be found");
             }else if (cardRepo.existsByDeckAndFront(deck, front)) {
                 throw new UserException("Card could not be added. " + 
                 "You have a card within this deck with the same front.");
@@ -124,6 +135,8 @@ public class DeckAndCardService {
     public long countCards(Deck deck) {
         return cardRepo.countCards(deck.getDeckId());
     }
+
+    
 }
 
 

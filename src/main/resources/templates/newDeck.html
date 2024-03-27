@@ -6,10 +6,11 @@
 </head>
 
 <body>
+    <a href="../home">Home</a>
     <h2>Create a new deck</h2>
-    <form action="#" th:action="@{/newDeck}" method="post">
+    <form th:action="@{newDeck}" method="post">
         <label for="deckName">Deck name:</label><br>
-        <input type="text" id="deckname" name="deckName"/><br><br>
+        <input type="text" id="deckName" name="deckName"/><br><br>
         <button type="submit">Create Deck</button>
     </form>
     <div th:if="${error}" class="alert alert-danger">

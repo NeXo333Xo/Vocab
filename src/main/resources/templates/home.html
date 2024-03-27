@@ -5,16 +5,10 @@
     <title>Home</title>
 </head>
 <body>
-<h1 th:text="'It\'s nice to see you again ' + ${user.username}"></h1><hr> <br>
+<h1 th:text="'It\'s nice to see you again ' + ${userId}"></h1><hr> <br>
 
-<button type="button" name="NewDeck" onclick="createNewDeck()">Create new Deck</button><br><br>
+<a th:href="@{home/newDeck}">Create new Deck</a>
 
-<script>
-    function createNewDeck() {
-        // Redirect the user to the specified URL
-        window.location.href = "./newDeck";
-    }
-</script>
 
 <div class="deck">
     <h2>User Decks</h2>
@@ -24,15 +18,16 @@
             <!-- Display the deck's name -->
             <span th:text="${deck.name}"></span>
                 <span>&ensp;</span> 
-            <a th:href="@{'/study/' + ${deck.deckId}}">Study</a>
+            <a th:href="@{'home/study/decks/' + ${deck.deckId}}">Study</a>
                 <span>&ensp;</span> 
-            <a th:href="@{'/showCards/' + ${deck.deckId}}">Show Cards</a> 
+            <a th:href="@{'home/showCards/decks/' + ${deck.deckId}}">Show Cards</a> 
                 <span>&ensp;</span> 
-            <a th:href="@{/newCard(deckId=${deck.deckId})}">Add a new card</a>
+            <a th:href="@{'home/newCard/decks/' + ${deck.deckId}}">Add a new card</a>
                 <span>&ensp;</span> 
-                <a th:href="@{'/editDeck/' + ${deck.deckId}}">Edit deck</a>
+            <a th:href="@{'home/editDeck/decks/' + ${deck.deckId}}">Edit deck</a>
                 <span>&ensp;</span>
-            <hr>
+            <!--<a th:href="@{${userId}+ '/test/' + ${deck.deckId}} ">Test</a>
+            <hr> -->
         </li>
     </ul>
     <p th:if="${#lists.isEmpty(decks)}">No decks available.</p>

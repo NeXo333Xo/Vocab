@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.thowl.vocabulary.entity.Users;
@@ -16,8 +18,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@RequestMapping("/api/auth")
 @Slf4j
-@SessionAttributes({"user, deck"})
 public class LoginController {
 
     @Autowired
@@ -70,9 +72,8 @@ public class LoginController {
             Users user = loginService.registerUser(email, username, password);
             user.clearPassword();
 
-            session.setAttribute("user", user);
             log.info("Registered new User: {}", username);
-            return "redirect:/home";
+            return "redirect:/api/users/" + user.getUserId() + "/home";
         } catch (UserException e) {
             model.addAttribute("error", e.getMessage());
             return "register";
@@ -102,8 +103,7 @@ public class LoginController {
     public String doLogin(
             @RequestParam("username") String username,
             @RequestParam("password") String password,
-            Model model,
-            HttpSession session) {
+            Model model) {
         log.info("Entering doLogin");
         try {
             if (username == null || password == null) {
@@ -113,9 +113,8 @@ public class LoginController {
             Users user = loginService.loginUser(username, password);
             user.clearPassword();
 
-            session.setAttribute("user", user);
             log.info("Login in with User: {}", username);
-            return "redirect:/home";
+            return "redirect:/api/users/" +  user.getUserId() + "/home";
         } catch (UserException e) {
             model.addAttribute("error", e.getMessage());
             return "login";
@@ -137,7 +136,7 @@ public class LoginController {
         user.getUsername());
         loginService.logoutUser(user); // loged out + user status: online false;
         session.invalidate();
-        return "redirect:/login";
+        return "redirect:/api/auth/login";
      } 
         
     
