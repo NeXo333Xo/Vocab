@@ -9,8 +9,8 @@
 6. License
 
 # 1. Introduction
-The goal is to create a spaced repition vocabulary learning Web  Application (just vocabulary learner 
-for now). I tried to stick to REST architecture and the project is built  in java with springboot
+The goal is to create a spaced repition vocabulary learning Web  Application (just vocabulary learner for now).
+I tried to stick to REST architecture and the project is built in java with springboot (jpa CRUD)
 and HTML & CSS for the views.
 
 # 2. Features

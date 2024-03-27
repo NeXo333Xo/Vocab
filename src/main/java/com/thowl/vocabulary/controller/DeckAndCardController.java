@@ -2,8 +2,6 @@ package com.thowl.vocabulary.controller;
 
 import java.util.Collections;
 import java.util.List;
-
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

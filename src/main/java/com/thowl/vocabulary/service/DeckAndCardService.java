@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
 import com.thowl.vocabulary.entity.Card;
 import com.thowl.vocabulary.entity.Deck;
 import com.thowl.vocabulary.entity.Users;
